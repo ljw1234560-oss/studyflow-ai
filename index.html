@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyFlow AI | Smart Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="#home" class="logo">StudyFlow<span>AI</span></a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
+        ☰
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#planner">Planner</a></li>
+        <li><a href="#assistant">AI Assistant</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+
+      <a href="#planner" class="nav-button">Start Planning</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero-section">
+      <div class="hero-content">
+        <p class="eyebrow">AI-assisted study management for students</p>
+        <h1>Plan assignments, track deadlines, and study smarter.</h1>
+        <p class="hero-description">
+          StudyFlow AI helps students organize tasks, prioritize urgent work,
+          and receive simple AI-style study recommendations based on deadlines
+          and priority levels.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#planner" class="primary-button">Create My Study Plan</a>
+          <a href="#about" class="secondary-button">Learn More</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-header">
+          <span class="status-dot"></span>
+          <span>Today’s Study Overview</span>
+        </div>
+
+        <div class="overview-grid">
+          <div>
+            <strong id="heroTotalTasks">0</strong>
+            <span>Total Tasks</span>
+          </div>
+          <div>
+            <strong id="heroCompletedTasks">0</strong>
+            <span>Completed</span>
+          </div>
+          <div>
+            <strong id="heroUrgentTasks">0</strong>
+            <span>Urgent</span>
+          </div>
+        </div>
+
+        <div class="mini-progress">
+          <div class="mini-progress-label">
+            <span>Study Progress</span>
+            <span id="heroProgressText">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="heroProgressFill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planner" class="section planner-section">
+      <div class="section-heading">
+        <p class="eyebrow">Planner</p>
+        <h2>Create and manage your study tasks</h2>
+        <p>
+          Add assignments, exams, or project tasks. The planner calculates
+          remaining days and updates your progress automatically.
+        </p>
+      </div>
+
+      <div class="planner-layout">
+        <form class="task-form" id="taskForm">
+          <h3>Add New Study Task</h3>
+
+          <label for="taskTitle">Task Title</label>
+          <input
+            type="text"
+            id="taskTitle"
+            placeholder="e.g., Finish AI programming assignment"
+            required
+          />
+
+          <label for="subjectName">Subject</label>
+          <input
+            type="text"
+            id="subjectName"
+            placeholder="e.g., Introduction to AI Programming"
+            required
+          />
+
+          <div class="form-row">
+            <div>
+              <label for="dueDate">Due Date</label>
+              <input type="date" id="dueDate" required />
+            </div>
+
+            <div>
+              <label for="priority">Priority</label>
+              <select id="priority" required>
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="taskType">Task Type</label>
+          <select id="taskType" required>
+            <option value="Assignment">Assignment</option>
+            <option value="Exam">Exam</option>
+            <option value="Project">Project</option>
+            <option value="Review">Review</option>
+          </select>
+
+          <label for="taskNote">Short Note</label>
+          <textarea
+            id="taskNote"
+            rows="4"
+            placeholder="Write a short study note or reminder."
+          ></textarea>
+
+          <button type="submit" class="primary-button full-width">
+            Add Task
+          </button>
+        </form>
+
+        <div class="task-dashboard">
+          <div class="dashboard-summary">
+            <div class="summary-card">
+              <span>Total</span>
+              <strong id="totalTasks">0</strong>
+            </div>
+            <div class="summary-card">
+              <span>Completed</span>
+              <strong id="completedTasks">0</strong>
+            </div>
+            <div class="summary-card">
+              <span>In Progress</span>
+              <strong id="pendingTasks">0</strong>
+            </div>
+          </div>
+
+          <div class="progress-panel">
+            <div class="progress-title">
+              <h3>Overall Progress</h3>
+              <span id="progressPercentage">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="pending">In Progress</button>
+            <button class="filter-button" data-filter="completed">Completed</button>
+            <button class="filter-button" data-filter="urgent">Urgent</button>
+          </div>
+
+          <div class="task-list" id="taskList">
+            <div class="empty-state" id="emptyState">
+              <h3>No study tasks yet</h3>
+              <p>Add your first task to start planning your study schedule.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="assistant" class="section assistant-section">
+      <div class="section-heading">
+        <p class="eyebrow">AI Assistant</p>
+        <h2>Personalized study recommendation</h2>
+        <p>
+          This section provides rule-based AI-style recommendations according
+          to your task priority, deadline, and completion status.
+        </p>
+      </div>
+
+      <div class="assistant-card">
+        <div class="assistant-icon">🤖</div>
+        <div>
+          <h3>StudyFlow AI Recommendation</h3>
+          <p id="aiRecommendation">
+            Add a study task first. StudyFlow AI will analyze your schedule and
+            suggest what to focus on.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-grid">
+        <div class="tip-card">
+          <h3>Deadline Awareness</h3>
+          <p>
+            Tasks due within two days are marked as urgent so that students can
+            focus on time-sensitive work first.
+          </p>
+        </div>
+
+        <div class="tip-card">
+          <h3>Priority-Based Planning</h3>
+          <p>
+            High-priority tasks are highlighted to help students make better
+            study decisions.
+          </p>
+        </div>
+
+        <div class="tip-card">
+          <h3>Progress Tracking</h3>
+          <p>
+            Completion status and progress percentage help users understand
+            their current study workload.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="section-heading">
+        <p class="eyebrow">About the Service</p>
+        <h2>Why StudyFlow AI?</h2>
+        <p>
+          Many students manage assignments, exams, and projects at the same
+          time. StudyFlow AI is designed to reduce confusion by combining
+          planning, prioritization, and study feedback in one simple web service.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Target Users</h3>
+          <p>
+            University students who need a simple way to manage academic tasks,
+            deadlines, and study priorities.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Core Value</h3>
+          <p>
+            The service helps users decide what to study first by showing
+            deadlines, priorities, and completion progress.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <h3>Technology</h3>
+          <p>
+            This project is built with HTML, CSS, and JavaScript and can be
+            deployed as a static website using Vercel.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 StudyFlow AI. Built for Introduction to AI Programming Assignment 4.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
