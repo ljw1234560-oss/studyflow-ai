@@ -43,4 +43,4 @@ AI tools were used for brainstorming, PRD structure, initial code generation, de
 
 ## Deployment
 
-Final Vercel URL: To be added after deployment.
+Final Vercel URL: https://studyflow-ai-zeta-brown.vercel.app
