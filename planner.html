@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>플래너 | StudyFlow AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">StudyFlow<span>AI</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="planner.html" class="active">플래너</a></li>
+        <li><a href="assistant.html">AI 도우미</a></li>
+        <li><a href="about.html">소개</a></li>
+      </ul>
+      <a href="assistant.html" class="nav-button">추천 보기</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section planner-section page-section">
+      <div class="section-heading">
+        <p class="eyebrow">플래너</p>
+        <h2>학습 할 일을 만들고 관리하세요</h2>
+        <p>
+          과제, 시험, 프로젝트를 추가하면 남은 날짜와 진행률이 자동으로 계산됩니다.
+          입력한 내용은 이 브라우저에 저장됩니다.
+        </p>
+      </div>
+
+      <div class="planner-layout">
+        <form class="task-form" id="taskForm">
+          <h3>새 학습 할 일 추가</h3>
+
+          <label for="taskTitle">할 일 제목</label>
+          <input type="text" id="taskTitle" placeholder="예: AI 프로그래밍 과제 마무리" required />
+
+          <label for="subjectName">과목명</label>
+          <input type="text" id="subjectName" placeholder="예: 인공지능 프로그래밍 입문" required />
+
+          <div class="form-row">
+            <div>
+              <label for="dueDate">마감일</label>
+              <input type="date" id="dueDate" required />
+            </div>
+            <div>
+              <label for="priority">우선순위</label>
+              <select id="priority" required>
+                <option value="High">높음</option>
+                <option value="Medium" selected>보통</option>
+                <option value="Low">낮음</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="taskType">유형</label>
+          <select id="taskType" required>
+            <option value="Assignment">과제</option>
+            <option value="Exam">시험</option>
+            <option value="Project">프로젝트</option>
+            <option value="Review">복습</option>
+          </select>
+
+          <label for="taskNote">메모</label>
+          <textarea id="taskNote" rows="4" placeholder="공부할 내용이나 준비물을 적어보세요."></textarea>
+
+          <button type="submit" class="primary-button full-width">할 일 추가</button>
+        </form>
+
+        <div class="task-dashboard">
+          <div class="dashboard-summary">
+            <div class="summary-card"><span>전체</span><strong id="totalTasks">0</strong></div>
+            <div class="summary-card"><span>완료</span><strong id="completedTasks">0</strong></div>
+            <div class="summary-card"><span>진행 중</span><strong id="pendingTasks">0</strong></div>
+          </div>
+
+          <div class="progress-panel">
+            <div class="progress-title">
+              <h3>전체 진행률</h3>
+              <span id="progressPercentage">0%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          </div>
+
+          <div class="filter-bar">
+            <button class="filter-button active" data-filter="all">전체</button>
+            <button class="filter-button" data-filter="pending">진행 중</button>
+            <button class="filter-button" data-filter="completed">완료</button>
+            <button class="filter-button" data-filter="urgent">긴급</button>
+          </div>
+
+          <div class="task-list" id="taskList">
+            <div class="empty-state" id="emptyState">
+              <h3>아직 등록된 할 일이 없습니다</h3>
+              <p>첫 번째 학습 할 일을 추가해 계획을 시작하세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>© 2026 StudyFlow AI. 학습 계획을 더 쉽게 관리하세요.</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
