@@ -1,51 +1,65 @@
 # StudyFlow AI
 
-StudyFlow AI is an AI-assisted study planner web service for university students.
+StudyFlow AI는 대학생을 위한 AI 보조 학습 플래너 웹사이트입니다.
+과제, 시험, 프로젝트 마감일을 관리하고 우선순위에 따라 오늘 집중할 공부를 추천합니다.
 
-## Project Overview
+## 주요 기능
 
-A web planner for managing assignments, exams, projects, deadlines, priorities, completion status, and AI-style study recommendations.
+- 학습 할 일 추가, 완료, 삭제, 필터링
+- 마감일까지 남은 날짜 자동 계산
+- 전체, 완료, 진행 중, 긴급 항목 요약
+- 진행률 퍼센트와 진행 바 표시
+- 일정 상태에 따른 AI 스타일 학습 추천
+- localStorage를 이용한 브라우저 저장
+- 데스크톱과 모바일 반응형 화면 지원
 
-## Main Features
+## 페이지 구성
 
-- Add, complete, delete, and filter study tasks
-- Calculate remaining days until deadlines
-- Track total, completed, pending, and urgent tasks
-- Show progress percentage and progress bar
-- Provide AI-style study recommendations
-- Save tasks with localStorage
-- Responsive desktop and mobile design
+- `index.html`: 홈 화면과 전체 학습 현황
+- `planner.html`: 학습 할 일 입력, 목록, 필터, 진행률 관리
+- `assistant.html`: 현재 일정 기반 학습 추천
+- `about.html`: 서비스 소개와 핵심 가치
 
-## Technologies Used
+## 기술 스택
 
 - HTML
 - CSS
 - JavaScript
 - localStorage
-- Vercel
 - GitHub Pages
+- Vercel
 
-## How to Run Locally
+## 로컬 실행
 
-Run: python3 -m http.server 8000
-Open: http://localhost:8000
+```bash
+python3 -m http.server 8000
+```
 
-## Project Structure
+브라우저에서 아래 주소를 엽니다.
 
-Assignment4/
-- index.html
-- style.css
-- script.js
-- README.md
+```text
+http://localhost:8000
+```
 
-## AI Assistance
+## 프로젝트 구조
 
-AI tools were used for brainstorming, PRD structure, initial code generation, debugging localStorage, and improving documentation. The final code was tested and modified to make sure the planner works correctly.
+```text
+studyflow-ai/
+├── index.html
+├── planner.html
+├── assistant.html
+├── about.html
+├── style.css
+├── script.js
+├── README.md
+├── .nojekyll
+└── .github/
+    └── workflows/
+        └── pages.yml
+```
 
-## Deployment
+## 배포 주소
 
-GitHub Pages URL: https://ljw1234560-oss.github.io/studyflow-ai/
+GitHub Pages: https://ljw1234560-oss.github.io/studyflow-ai/
 
-Final Vercel URL: https://studyflow-ai-zeta-brown.vercel.app
-
-GitHub Pages is configured to publish from the `main` branch root.
+Vercel: https://studyflow-ai-zeta-brown.vercel.app
