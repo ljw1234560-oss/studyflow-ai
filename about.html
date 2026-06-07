@@ -8,15 +8,18 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar">
+    <nav class="navbar" aria-label="주요 메뉴">
       <a href="index.html" class="logo">StudyFlow<span>AI</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기">☰</button>
+
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">홈</a></li>
         <li><a href="planner.html">플래너</a></li>
         <li><a href="assistant.html">AI 도우미</a></li>
-        <li><a href="about.html" class="active">소개</a></li>
+        <li><a href="about.html" class="active" aria-current="page">소개</a></li>
       </ul>
+
       <a href="planner.html" class="nav-button">사용해보기</a>
     </nav>
   </header>
@@ -49,7 +52,10 @@
     </section>
   </main>
 
-  <footer class="site-footer"><p>© 2026 StudyFlow AI. 학생을 위한 스마트 학습 플래너입니다.</p></footer>
+  <footer class="site-footer">
+    <p>© 2026 StudyFlow AI. 학생을 위한 스마트 학습 플래너입니다.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
