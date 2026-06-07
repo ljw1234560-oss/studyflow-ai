@@ -8,31 +8,48 @@ const navLinks = document.getElementById("navLinks");
 let tasks = JSON.parse(localStorage.getItem("studyflowTasks")) || [];
 let currentFilter = "all";
 
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-});
+const priorityLabels = {
+  High: "높음",
+  Medium: "보통",
+  Low: "낮음",
+};
 
-taskForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+const typeLabels = {
+  Assignment: "과제",
+  Exam: "시험",
+  Project: "프로젝트",
+  Review: "복습",
+};
 
-  const task = {
-    id: Date.now(),
-    title: document.getElementById("taskTitle").value.trim(),
-    subject: document.getElementById("subjectName").value.trim(),
-    dueDate: document.getElementById("dueDate").value,
-    priority: document.getElementById("priority").value,
-    type: document.getElementById("taskType").value,
-    note: document.getElementById("taskNote").value.trim(),
-    completed: false,
-  };
+if (menuToggle && navLinks) {
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
+}
 
-  tasks.push(task);
-  saveTasks();
-  taskForm.reset();
-  renderTasks();
-  updateSummary();
-  updateRecommendation();
-});
+if (taskForm) {
+  taskForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const task = {
+      id: Date.now(),
+      title: document.getElementById("taskTitle").value.trim(),
+      subject: document.getElementById("subjectName").value.trim(),
+      dueDate: document.getElementById("dueDate").value,
+      priority: document.getElementById("priority").value,
+      type: document.getElementById("taskType").value,
+      note: document.getElementById("taskNote").value.trim(),
+      completed: false,
+    };
+
+    tasks.push(task);
+    saveTasks();
+    taskForm.reset();
+    renderTasks();
+    updateSummary();
+    updateRecommendation();
+  });
+}
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -42,6 +59,10 @@ filterButtons.forEach((button) => {
     renderTasks();
   });
 });
+
+function saveTasks() {
+  localStorage.setItem("studyflowTasks", JSON.stringify(tasks));
+}
 
 function getDaysLeft(dueDate) {
   const today = new Date();
@@ -59,6 +80,20 @@ function isUrgent(task) {
   return daysLeft <= 2 && !task.completed;
 }
 
+function getDeadlineText(dueDate) {
+  const daysLeft = getDaysLeft(dueDate);
+
+  if (daysLeft > 0) {
+    return `${daysLeft}일 남음`;
+  }
+
+  if (daysLeft === 0) {
+    return "오늘 마감";
+  }
+
+  return `${Math.abs(daysLeft)}일 지남`;
+}
+
 function getFilteredTasks() {
   if (currentFilter === "completed") {
     return tasks.filter((task) => task.completed);
@@ -74,11 +109,12 @@ function getFilteredTasks() {
 
   return tasks;
 }
-function saveTasks() {
-  localStorage.setItem("studyflowTasks", JSON.stringify(tasks));
-}
 
 function renderTasks() {
+  if (!taskList || !emptyState) {
+    return;
+  }
+
   saveTasks();
   const filteredTasks = getFilteredTasks();
   taskList.innerHTML = "";
@@ -92,18 +128,7 @@ function renderTasks() {
   emptyState.style.display = "none";
 
   filteredTasks.forEach((task) => {
-    const daysLeft = getDaysLeft(task.dueDate);
     const urgent = isUrgent(task);
-
-    let deadlineText = "";
-    if (daysLeft > 0) {
-      deadlineText = `${daysLeft} day(s) left`;
-    } else if (daysLeft === 0) {
-      deadlineText = "Due today";
-    } else {
-      deadlineText = `${Math.abs(daysLeft)} day(s) overdue`;
-    }
-
     const taskCard = document.createElement("div");
     taskCard.className = `task-card ${task.completed ? "completed" : ""}`;
 
@@ -111,23 +136,23 @@ function renderTasks() {
       <div class="task-top">
         <div>
           <h3>${task.title}</h3>
-          <p class="task-meta">${task.subject} · ${task.type} · ${deadlineText}</p>
+          <p class="task-meta">${task.subject} · ${typeLabels[task.type]} · ${getDeadlineText(task.dueDate)}</p>
         </div>
       </div>
 
       <div class="badge-row">
-        <span class="badge ${task.priority.toLowerCase()}">${task.priority}</span>
-        ${urgent ? `<span class="badge urgent">Urgent</span>` : ""}
+        <span class="badge ${task.priority.toLowerCase()}">${priorityLabels[task.priority]}</span>
+        ${urgent ? `<span class="badge urgent">긴급</span>` : ""}
       </div>
 
-      <p class="task-meta">${task.note || "No additional note."}</p>
+      <p class="task-meta">${task.note || "추가 메모가 없습니다."}</p>
 
       <div class="task-actions">
         <button class="small-button complete" onclick="toggleComplete(${task.id})">
-          ${task.completed ? "Undo" : "Complete"}
+          ${task.completed ? "되돌리기" : "완료"}
         </button>
         <button class="small-button delete" onclick="deleteTask(${task.id})">
-          Delete
+          삭제
         </button>
       </div>
     `;
@@ -145,7 +170,6 @@ function toggleComplete(id) {
   });
 
   saveTasks();
-  saveTasks();
   renderTasks();
   updateSummary();
   updateRecommendation();
@@ -153,10 +177,24 @@ function toggleComplete(id) {
 
 function deleteTask(id) {
   tasks = tasks.filter((task) => task.id !== id);
-
+  saveTasks();
   renderTasks();
   updateSummary();
   updateRecommendation();
+}
+
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = value;
+  }
+}
+
+function setWidth(id, value) {
+  const element = document.getElementById(id);
+  if (element) {
+    element.style.width = value;
+  }
 }
 
 function updateSummary() {
@@ -166,27 +204,28 @@ function updateSummary() {
   const urgent = tasks.filter((task) => isUrgent(task)).length;
   const progress = total === 0 ? 0 : Math.round((completed / total) * 100);
 
-  document.getElementById("totalTasks").textContent = total;
-  document.getElementById("completedTasks").textContent = completed;
-  document.getElementById("pendingTasks").textContent = pending;
-
-  document.getElementById("heroTotalTasks").textContent = total;
-  document.getElementById("heroCompletedTasks").textContent = completed;
-  document.getElementById("heroUrgentTasks").textContent = urgent;
-
-  document.getElementById("progressPercentage").textContent = `${progress}%`;
-  document.getElementById("progressFill").style.width = `${progress}%`;
-
-  document.getElementById("heroProgressText").textContent = `${progress}%`;
-  document.getElementById("heroProgressFill").style.width = `${progress}%`;
+  setText("totalTasks", total);
+  setText("completedTasks", completed);
+  setText("pendingTasks", pending);
+  setText("heroTotalTasks", total);
+  setText("heroCompletedTasks", completed);
+  setText("heroUrgentTasks", urgent);
+  setText("progressPercentage", `${progress}%`);
+  setText("heroProgressText", `${progress}%`);
+  setWidth("progressFill", `${progress}%`);
+  setWidth("heroProgressFill", `${progress}%`);
 }
 
 function updateRecommendation() {
   const recommendation = document.getElementById("aiRecommendation");
 
+  if (!recommendation) {
+    return;
+  }
+
   if (tasks.length === 0) {
     recommendation.textContent =
-      "Add a study task first. StudyFlow AI will analyze your schedule and suggest what to focus on.";
+      "먼저 플래너에 학습 할 일을 추가하세요. StudyFlow AI가 일정을 분석해 추천을 보여줍니다.";
     return;
   }
 
@@ -198,16 +237,16 @@ function updateRecommendation() {
 
   if (urgentTasks.length > 0) {
     recommendation.textContent =
-      "AI Recommendation: You have urgent tasks due soon. Focus on the closest deadline first, then review high-priority tasks.";
+      "AI 추천: 곧 마감되는 긴급 할 일이 있습니다. 가장 가까운 마감일부터 처리하고, 그다음 높은 우선순위의 작업을 복습하세요.";
   } else if (highPriorityTasks.length > 0) {
     recommendation.textContent =
-      "AI Recommendation: No urgent deadline was found, but you still have high-priority work. Start with the most important task today.";
+      "AI 추천: 긴급 마감은 없지만 높은 우선순위의 공부가 남아 있습니다. 오늘 가장 중요한 한 가지부터 시작하세요.";
   } else if (pendingTasks.length > 0) {
     recommendation.textContent =
-      "AI Recommendation: Your schedule is stable. Continue working steadily and complete at least one task before the end of the day.";
+      "AI 추천: 일정이 비교적 안정적입니다. 무리하지 말고 오늘 안에 할 일 하나를 완료하는 것을 목표로 해보세요.";
   } else {
     recommendation.textContent =
-      "AI Recommendation: Great job. All tasks are completed. Use this time to review or prepare for upcoming assignments.";
+      "AI 추천: 모든 할 일을 완료했습니다. 남은 시간에는 복습하거나 다음 과제를 미리 준비해보세요.";
   }
 }
 
