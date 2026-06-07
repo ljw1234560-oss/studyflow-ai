@@ -8,15 +8,18 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar">
+    <nav class="navbar" aria-label="주요 메뉴">
       <a href="index.html" class="logo">StudyFlow<span>AI</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기">☰</button>
+
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">홈</a></li>
         <li><a href="planner.html">플래너</a></li>
-        <li><a href="assistant.html" class="active">AI 도우미</a></li>
+        <li><a href="assistant.html" class="active" aria-current="page">AI 도우미</a></li>
         <li><a href="about.html">소개</a></li>
       </ul>
+
       <a href="planner.html" class="nav-button">할 일 추가</a>
     </nav>
   </header>
@@ -27,12 +30,13 @@
         <p class="eyebrow">AI 도우미</p>
         <h2>현재 일정에 맞는 학습 추천</h2>
         <p>
-          등록된 할 일의 마감일, 우선순위, 완료 상태를 바탕으로 오늘 집중하면 좋은 공부를 안내합니다.
+          등록된 할 일의 마감일, 우선순위, 완료 상태를 바탕으로
+          오늘 집중하면 좋은 공부를 안내합니다.
         </p>
       </div>
 
       <div class="assistant-card">
-        <div class="assistant-icon">AI</div>
+        <div class="assistant-icon" aria-hidden="true">AI</div>
         <div>
           <h3>StudyFlow AI 추천</h3>
           <p id="aiRecommendation">
@@ -58,7 +62,10 @@
     </section>
   </main>
 
-  <footer class="site-footer"><p>© 2026 StudyFlow AI. 오늘 집중할 공부를 추천합니다.</p></footer>
+  <footer class="site-footer">
+    <p>© 2026 StudyFlow AI. 오늘 집중할 공부를 추천합니다.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
