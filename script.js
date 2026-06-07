@@ -117,20 +117,24 @@ function createTaskCard(task) {
 }
 
 function getTaskCardMarkup(task) {
+  const title = escapeHtml(task.title);
+  const subject = escapeHtml(task.subject);
+  const note = escapeHtml(task.note || "추가 메모가 없습니다.");
+  const type = labels.types[task.type] || task.type;
+  const priority = labels.priorities[task.priority] || task.priority;
   const urgentBadge = isUrgent(task) ? '<span class="badge urgent">긴급</span>' : "";
   const completeLabel = task.completed ? "되돌리기" : "완료";
-  const note = task.note || "추가 메모가 없습니다.";
 
   return `
     <div class="task-top">
       <div>
-        <h3>${task.title}</h3>
-        <p class="task-meta">${task.subject} · ${labels.types[task.type]} · ${getDeadlineText(task.dueDate)}</p>
+        <h3>${title}</h3>
+        <p class="task-meta">${subject} · ${type} · ${getDeadlineText(task.dueDate)}</p>
       </div>
     </div>
 
     <div class="badge-row">
-      <span class="badge ${task.priority.toLowerCase()}">${labels.priorities[task.priority]}</span>
+      <span class="badge ${task.priority.toLowerCase()}">${priority}</span>
       ${urgentBadge}
     </div>
 
@@ -246,6 +250,15 @@ function getDeadlineText(dueDate) {
 
 function isUrgent(task) {
   return getDaysLeft(task.dueDate) <= 2 && !task.completed;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function setText(id, value) {
