@@ -23,6 +23,7 @@ A web planner for managing assignments, exams, projects, deadlines, priorities, 
 - JavaScript
 - localStorage
 - Vercel
+- GitHub Pages
 
 ## How to Run Locally
 
@@ -42,5 +43,7 @@ Assignment4/
 AI tools were used for brainstorming, PRD structure, initial code generation, debugging localStorage, and improving documentation. The final code was tested and modified to make sure the planner works correctly.
 
 ## Deployment
+
+GitHub Pages URL: https://ljw1234560-oss.github.io/studyflow-ai/
 
 Final Vercel URL: https://studyflow-ai-zeta-brown.vercel.app
