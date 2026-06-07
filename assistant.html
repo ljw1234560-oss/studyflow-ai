@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 도우미 | StudyFlow AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">StudyFlow<span>AI</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">홈</a></li>
+        <li><a href="planner.html">플래너</a></li>
+        <li><a href="assistant.html" class="active">AI 도우미</a></li>
+        <li><a href="about.html">소개</a></li>
+      </ul>
+      <a href="planner.html" class="nav-button">할 일 추가</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section assistant-section page-section">
+      <div class="section-heading">
+        <p class="eyebrow">AI 도우미</p>
+        <h2>현재 일정에 맞는 학습 추천</h2>
+        <p>
+          등록된 할 일의 마감일, 우선순위, 완료 상태를 바탕으로 오늘 집중하면 좋은 공부를 안내합니다.
+        </p>
+      </div>
+
+      <div class="assistant-card">
+        <div class="assistant-icon">AI</div>
+        <div>
+          <h3>StudyFlow AI 추천</h3>
+          <p id="aiRecommendation">
+            먼저 플래너에 학습 할 일을 추가하세요. StudyFlow AI가 일정을 분석해 추천을 보여줍니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="tip-grid">
+        <div class="tip-card">
+          <h3>마감일 인식</h3>
+          <p>이틀 안에 마감되는 할 일은 긴급 항목으로 표시해 먼저 확인할 수 있습니다.</p>
+        </div>
+        <div class="tip-card">
+          <h3>우선순위 기반 계획</h3>
+          <p>높은 우선순위의 할 일을 먼저 보여주어 공부 순서를 정하는 데 도움을 줍니다.</p>
+        </div>
+        <div class="tip-card">
+          <h3>진행률 확인</h3>
+          <p>완료한 항목과 남은 항목을 바탕으로 현재 학습 부담을 파악할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>© 2026 StudyFlow AI. 오늘 집중할 공부를 추천합니다.</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
