@@ -8,15 +8,13 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="navbar">
+    <nav class="navbar" aria-label="주요 메뉴">
       <a href="index.html" class="logo">StudyFlow<span>AI</span></a>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
-        ☰
-      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기">☰</button>
 
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" class="active">홈</a></li>
+        <li><a href="index.html" class="active" aria-current="page">홈</a></li>
         <li><a href="planner.html">플래너</a></li>
         <li><a href="assistant.html">AI 도우미</a></li>
         <li><a href="about.html">소개</a></li>
@@ -42,7 +40,7 @@
         </div>
       </div>
 
-      <div class="hero-card">
+      <aside class="hero-card" aria-label="오늘의 학습 현황">
         <div class="card-header">
           <span class="status-dot"></span>
           <span>오늘의 학습 현황</span>
@@ -72,7 +70,7 @@
             <div class="progress-fill" id="heroProgressFill"></div>
           </div>
         </div>
-      </div>
+      </aside>
     </section>
 
     <section class="section">
