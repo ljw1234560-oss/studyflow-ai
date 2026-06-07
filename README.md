@@ -47,3 +47,5 @@ AI tools were used for brainstorming, PRD structure, initial code generation, de
 GitHub Pages URL: https://ljw1234560-oss.github.io/studyflow-ai/
 
 Final Vercel URL: https://studyflow-ai-zeta-brown.vercel.app
+
+GitHub Pages is configured to publish from the `main` branch root.
